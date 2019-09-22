@@ -5,9 +5,9 @@
 
 $(document).ready(function () {
 
-    gifObj.init;
-    $('.btn-search').on('click', function (event);
-    $('button').on('click', gifObj.displayGifs);
+    gifObj.renderButtons();
+    $('.btn-search').on('click', gifObj.searchGif(event));
+    $('gif-btn').on('click', gifObj.displayGifs);
 })
 
 ///////////////////
@@ -17,8 +17,25 @@ $(document).ready(function () {
 //The Gif Object definition
 let gifObj = {
 
-    gifArr: [],
+    bayernPlayers: ['Philippe Coutinho', 'Robert Lewandowski', 'Manuel Neuer', 'Thomas Muller', 'Ivan Perisic', 'Lucas Hernandez', 'Jerome Boateng', 'Kingsley Coman', 'Benjamin Pavard', 'Joshua Kimmich', 'Sarpreet Singh'],
 
+    //Called on init
+    renderButtons: function (response) {
+
+        $("#buttons-view").empty();
+
+        // Looping through the array of gifs, creating DOM elements
+        for (var i = 0; i < this.bayernPlayers.length; i++) {
+
+            var a = $("<button>");
+            a.addClass("gif-btn");
+            a.attr("data-name", this.bayernPlayers[i]);
+            a.text(this.bayernPlayers[i]);
+            $(".gif-btn-container").append(a);
+        }
+    },
+
+    //Called when the user clicks a gif button
     displayGifs: function () {
 
         let gif = $(this).attr('data-btn');
@@ -30,7 +47,6 @@ let gifObj = {
         }).then(function (response) {
 
             let results = response.data;
-            console.log(response);
 
             for (let i = 0; i < results.length; i++) {
 
@@ -44,9 +60,6 @@ let gifObj = {
     //Called when user clicks search button
     searchGif: function () {
 
-        //Prevent the normal submission
-        event.preventDefault();
-
         //Capture the user input to search for
         let input = $('.search-field').val().trim();
     },
@@ -54,15 +67,7 @@ let gifObj = {
     //Called upon loading
     init: function () {
 
-        //Create a 'div' and 'p' tag
-        let gifDiv = $('<div>');
-        let p = $('<p>');
-
-        //Loop through all the pre-made gif buttons, loading them on the DOM
-        for (let i = 0; i < gifArr.length; i++) {
-
-            //
-        }
+        this.renderButtons();
     }
 }
 
