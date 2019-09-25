@@ -5,41 +5,37 @@
 
 $(document).ready(function () {
 
-    gifObj.renderButtons();
-    $('.btn-search').on('click', gifObj.searchGif(event));
-    $('gif-btn').on('click', gifObj.displayGifs);
-})
+    //Arrays that hold the player names, and the still and active state images
+    let topics = ['Philippe Coutinho', 'Robert Lewandowski', 'Manuel Neuer', 'Thomas Muller', 'Ivan Perisic', 'Lucas Hernandez', 'Jerome Boateng', 'Kingsley Coman', 'Benjamin Pavard', 'Joshua Kimmich', 'Sarpreet Singh'];
+    let stillGifs = [];
+    let activeGifs = [];
 
-///////////////////
-//Object definition
-///////////////////
-
-//The Gif Object definition
-let gifObj = {
-
-    bayernPlayers: ['Philippe Coutinho', 'Robert Lewandowski', 'Manuel Neuer', 'Thomas Muller', 'Ivan Perisic', 'Lucas Hernandez', 'Jerome Boateng', 'Kingsley Coman', 'Benjamin Pavard', 'Joshua Kimmich', 'Sarpreet Singh'],
-
-    //Called on init
-    renderButtons: function (response) {
+    //Create buttons when the window loads
+    function renderButtons(response) {
 
         $("#buttons-view").empty();
 
         // Looping through the array of gifs, creating DOM elements
-        for (var i = 0; i < this.bayernPlayers.length; i++) {
+        for (let i = 0; i < topics.length; i++) {
 
-            var a = $("<button>");
+            let a = $("<button>");
+            let gifItem = topics[i].split(' ');
             a.addClass("gif-btn");
-            a.attr("data-name", this.bayernPlayers[i]);
-            a.text(this.bayernPlayers[i]);
+            a.attr("data-name", gifItem[1]);
+            a.text(topics[i]);
             $(".gif-btn-container").append(a);
         }
-    },
+    }
 
     //Called when the user clicks a gif button
-    displayGifs: function () {
+    function displayGifs() {
 
-        let gif = $(this).attr('data-btn');
-        let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+        let gif = $(this).attr('data-name');
+        let queryURL = "https://api.giphy.com/v1/gifs/search?api_key=jKS8KF927EtiidzhKfsudaJ7tx8fyb0g&q=" + gif + "&limit=10&offset=0&rating=PG-13&lang=en";
+
+        console.log("gif: " + gif + " --- queryURL: " + queryURL);
+
+        $('.gif-container').empty();
 
         $.ajax({
             url: queryURL,
@@ -52,22 +48,33 @@ let gifObj = {
 
                 let gifDiv = $('<div>');
                 let p = $('<p>');
-                let gifImage = $('<img>').attr('src', result[i]);
-            }
+                let gifStillImage = $('<img>').attr('src', results[i].images.fixed_height_still.url);
+                stillGifs.push(results[i].images.fixed_height_still.url);
+                let gifActiveImage = $('<img>').attr('src', results[i].images.fixed_height_still.url);
+                activeGifs.push(results[i].images.fixed_height.url);
+                let gifRating = 'Rated: ' + response.data[i].rating.toUpperCase();
+                p.append(gifRating);
+                gifDiv.append(gifStillImage);
+                gifDiv.append(p);
+                $('.gif-container').append(gifDiv);
+            }            
         });
-    },
+    }
 
     //Called when user clicks search button
-    searchGif: function () {
+    function searchGif() {
 
         //Capture the user input to search for
         let input = $('.search-field').val().trim();
-    },
+    }
 
     //Called upon loading
-    init: function () {
+    function init() {
 
-        this.renderButtons();
+        renderButtons();
     }
-}
 
+    renderButtons();
+    $(document).on('click', 'btn-search', searchGif);
+    $(document).on('click', '.gif-btn', displayGifs);
+});
