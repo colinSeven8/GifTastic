@@ -44,19 +44,31 @@ $(document).ready(function () {
 
             let results = response.data;
 
+            //Add the DOM elements to display the still gifs, and load the URLs into separate arrays
             for (let i = 0; i < results.length; i++) {
 
                 let gifDiv = $('<div>');
                 let p = $('<p>');
-                let gifStillImage = $('<img>').attr('src', results[i].images.fixed_height_still.url);
-                stillGifs.push(results[i].images.fixed_height_still.url);
-                let gifActiveImage = $('<img>').attr('src', results[i].images.fixed_height_still.url);
-                activeGifs.push(results[i].images.fixed_height.url);
-                let gifRating = 'Rated: ' + response.data[i].rating.toUpperCase();
+
+                let stillGifURL = results[i].images.fixed_height_still.url;
+                let gifStillImage = $('<img>').addClass('still-gif');
+                gifStillImage.attr('data-name', i);
+                gifStillImage.attr('src', stillGifURL);
+
+                let activeGifURL = results[i].images.fixed_height.url;
+                let gifActiveImage = $('<img>').addClass('active-gif');
+                gifActiveImage.attr('data-name', i);
+                gifActiveImage.attr('src', activeGifURL);
+
+                let ratingURL = response.data[i].rating.toUpperCase();
+                let gifRating = 'Rated: ' + ratingURL;
                 p.append(gifRating);
                 gifDiv.append(gifStillImage);
                 gifDiv.append(p);
                 $('.gif-container').append(gifDiv);
+                
+                stillGifs.push(stillGifURL);
+                activeGifs.push(activeGifURL);
             }            
         });
     }
@@ -68,13 +80,30 @@ $(document).ready(function () {
         let input = $('.search-field').val().trim();
     }
 
-    //Called upon loading
-    function init() {
+    //Called when user clicks a gif image
+    function activateGif() {
 
-        renderButtons();
+        //Get the data name of the gif
+        let id = $(this).attr('data-name');
+
+        //Check which state the gif is in
+        if ($(this).hasClass('active-gif')) {
+
+            //Swap the URL and class
+            $(this).attr('class', 'still-gif');
+            $(this).attr('src', stillGifs[id]);
+            console.log('active');
+        }
+        else {
+
+            //Swap the URL and class
+            $(this).attr('class', 'active-gif');
+            $(this).attr('src', activeGifs[id]);
+            console.log('still');
+        }
     }
 
     renderButtons();
-    $(document).on('click', 'btn-search', searchGif);
+    $(document).on('click', 'img', activateGif);
     $(document).on('click', '.gif-btn', displayGifs);
 });
