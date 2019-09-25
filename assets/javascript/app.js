@@ -11,17 +11,16 @@ $(document).ready(function () {
     let activeGifs = [];
 
     //Create buttons when the window loads
-    function renderButtons(response) {
+    function renderButtons() {
 
-        $("#buttons-view").empty();
+        $(".gif-btn-container").empty();
 
         // Looping through the array of gifs, creating DOM elements
         for (let i = 0; i < topics.length; i++) {
 
             let a = $("<button>");
-            let gifItem = topics[i].split(' ');
             a.addClass("gif-btn");
-            a.attr("data-name", gifItem[1]);
+            a.attr("data-name", topics[i]);
             a.text(topics[i]);
             $(".gif-btn-container").append(a);
         }
@@ -35,7 +34,10 @@ $(document).ready(function () {
 
         console.log("gif: " + gif + " --- queryURL: " + queryURL);
 
+        //Clear all previous content for DOM element that holds the gifs, as well as the arrays
         $('.gif-container').empty();
+        stillGifs = [];
+        activeGifs = [];
 
         $.ajax({
             url: queryURL,
@@ -66,25 +68,34 @@ $(document).ready(function () {
                 gifDiv.append(gifStillImage);
                 gifDiv.append(p);
                 $('.gif-container').append(gifDiv);
-                
+
                 stillGifs.push(stillGifURL);
                 activeGifs.push(activeGifURL);
-            }            
+            }
         });
     }
 
     //Called when user clicks search button
-    function searchGif() {
+    $('btn-search').on('click', function(event) {
+
+        event.preventDefault();
 
         //Capture the user input to search for
         let input = $('.search-field').val().trim();
-    }
+
+        //Add the new topic to the current array
+        topics.push(input);
+
+        //Re-create the buttons
+        renderButtons();
+    });
 
     //Called when user clicks a gif image
     function activateGif() {
 
         //Get the data name of the gif
         let id = $(this).attr('data-name');
+        console.log(this);
 
         //Check which state the gif is in
         if ($(this).hasClass('active-gif')) {
@@ -92,18 +103,17 @@ $(document).ready(function () {
             //Swap the URL and class
             $(this).attr('class', 'still-gif');
             $(this).attr('src', stillGifs[id]);
-            console.log('active');
         }
         else {
 
             //Swap the URL and class
             $(this).attr('class', 'active-gif');
             $(this).attr('src', activeGifs[id]);
-            console.log('still');
         }
     }
 
     renderButtons();
     $(document).on('click', 'img', activateGif);
     $(document).on('click', '.gif-btn', displayGifs);
+   //$(document).on('click', '.btn-search', addNewTopic);
 });
