@@ -32,34 +32,35 @@
 
     <div class='container-fluid'>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">GifTastic</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Pick a Genre!
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="search-field form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-search btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    </ul>
+                    <form class="form-inline">
+                        <input class="search-field form-control mr-sm-2" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-search btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
         </nav>
         <div class='row'>
-            <div class='gif-btn-container col-sm-3 col-md-3 col-lg-3 col-xl-3'></div>
-            <div class='gif-container col-sm-9 col-md-9 col-lg-9 col-xl-9'></div>
+            <div class='gif-btn-container col-sm-2 col-md-2 col-lg-2 col-xl-2'></div>
+            <div class='gif-container col-sm-10 col-md-10 col-lg-10 col-xl-10'></div>
         </div>
     </div>
-    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="assets/javascript/app.js"></script>

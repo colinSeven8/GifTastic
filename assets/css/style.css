@@ -1,3 +1,15 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    background: url("../Images/background.jpg") repeat center center fixed; 
+}
+
+img {
+    margin: 10px;
+}
+
+.gif-btn {
+    margin: 1%;
+}
