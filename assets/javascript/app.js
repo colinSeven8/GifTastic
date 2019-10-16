@@ -117,4 +117,3 @@ function activateGif() {
 renderButtons();
 $(document).on('click', 'img', activateGif);
 $(document).on('click', '.gif-btn', displayGifs);
-   //$(document).on('click', '.btn-search', addNewTopic);
