@@ -6,10 +6,32 @@ body {
     background: url("../Images/background.jpg") repeat center center fixed; 
 }
 
+.container-fluid {
+    padding: 0px;
+}
+
+.gif-container {
+}
+
 img {
-    margin: 10px;
+    float: left;
+    margin: 10px 20px;
 }
 
 .gif-btn {
     margin: 1%;
+    width: 100%;
+    color: limegreen;
+    background-color: dimgray;
+}
+
+button:hover {
+    color: white;
+    background-color: darkgray;
+}
+
+.gif-btn-container {
+    background-color: white;
+    border: grey;
+    border-style: double;
 }
