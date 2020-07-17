@@ -1,9 +1,6 @@
 # GifTastic
 
 ```
+Click [Here](https://colinseven8.github.io/GifTastic/) to check it out!
 
-> Click the link below to view the working project:
-
-	[GifTastic](https://colinseven8.github.io/GifTastic/)
-
-    ```
+```
